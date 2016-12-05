@@ -1,0 +1,42 @@
+<head>
+    <link rel="stylesheet" href="css/flipclock.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="js/flipclock.min.js"></script>
+
+    <script>
+    function cacheImages() {
+      $.ajax({
+        type: "GET",
+        url: '/cache-images',
+        beforeSend : function(){
+          var clock;
+          clock = new FlipClock($('.clock'), 10, {
+          					clockFace: 'Counter',
+          					autoStart: true,
+          					countdown: true,
+                    callbacks: {
+        		        	stop: function() {
+                        $("#clock").hide();
+        		        		loadFirstSlide();
+        		        	}
+        		        }
+          				});
+          clock.start();
+        }
+      })
+    }
+
+    function loadFirstSlide() {
+      $('#slides').html('<img src="img/slides/slide_0.png"/>');
+    }
+
+    $( document ).ready(function() {
+        cacheImages();
+    });
+</script>
+</head>
+<div id="clock" align="center">
+  Slides will start in...
+  <div class="clock" align="center" style="display: flex;justify-content: center"></div>
+</div>
+<div id="slides" align="center"/>

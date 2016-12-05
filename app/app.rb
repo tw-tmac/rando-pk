@@ -4,7 +4,8 @@ require 'rest-client'
 require 'json'
 require 'open-uri'
 
-rando_url = "https://commons.wikimedia.org/w/api.php?action=query&list=random&rnnamespace=6&rnlimit=10&format=json&prop=imageinfo&iiprop=url&iiurlwidth=800&format=json"
+SLIDES_COUNT=10
+rando_url = "https://commons.wikimedia.org/w/api.php?action=query&list=random&rnnamespace=6&rnlimit=#{SLIDES_COUNT}&format=json&prop=imageinfo&iiprop=url&iiurlwidth=800&format=json"
 
 get '/cache-images' do
   rando_response = RestClient.get(rando_url)
@@ -16,7 +17,7 @@ get '/cache-images' do
     image_response = RestClient.get(image_request_url)
     image_properties = JSON.parse(image_response)
     image_url = image_properties["query"]["pages"][image_properties["query"]["pages"].keys[0]]["imageinfo"][0]["thumburl"]
-    open("images/slide_#{index}.png", 'wb') do |file|
+    open("public/img/slides/slide_#{index}.png", 'wb') do |file|
       file << open(image_url).read
     end
   end
@@ -24,5 +25,5 @@ get '/cache-images' do
 end
 
 get '/' do
-  json "hello world"
+  erb :index
 end
