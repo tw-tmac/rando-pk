@@ -1,12 +1,14 @@
-SLIDES_DURATION = 10
+//Pecha Kucha rule says it's a 20 seconds per slide
+SLIDES_DURATION = 20
 function init() {
+  $("#restart").hide()
   $.ajax({
     type: "GET",
     url: '/cache-images',
     beforeSend : function(){
       var clock;
       //10 seconds countdown to let the presenter be ready.. and to cache the slides
-      clock = new FlipClock($('.clock'), 10, {
+      clock = new FlipClock($('.clock'), 1, {
                 clockFace: 'Counter',
                 autoStart: true,
                 countdown: true,
@@ -40,8 +42,13 @@ function loadSlides() {
     autoControls: false,
     pager: false,
     pause: SLIDES_DURATION * 1000, //milliseconds
-    onSlideNext: function(){
+    onSlideNext: function($slideElement, oldIndex, newIndex){
       startProgressBar();
+      slideCount = slider.getSlideCount()
+      if(newIndex+1 == slideCount)
+      {
+        $("#restart").show()
+      }
     }
   });
 }

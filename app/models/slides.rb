@@ -57,7 +57,7 @@ class Slides
   end
 
   def generate_intro_slide
-    generate_slide("public/img/slides/intro.png", generate_random_title, "public/img/slides/slide_intro.png")
+    generate_slide(File.dirname(__FILE__)+"/../public/img/slides/intro.png", generate_random_title, File.dirname(__FILE__)+"/../public/img/slides/slide_intro.png")
   end
 
 end
