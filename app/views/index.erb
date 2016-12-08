@@ -17,7 +17,7 @@
     <script src="js/slideshow.js"></script>
 
     <script>
-      $( document ).ready(function() {
+      $(document).ready(function() {
           init();
       });
     </script>
@@ -28,9 +28,11 @@
 </div>
 <div id="slides" class="slides">
   <ul class="bxslider">
-    <li align="center" style="display: flex;justify-content: center"><img src="img/slides/slide_0.png"/></li>
-    <li align="center" style="display: flex;justify-content: center"><img src="img/slides/slide_1.png"/></li>
-    <li align="center" style="display: flex;justify-content: center"><img src="img/slides/slide_2.png"/></li>
+    <li align="center" style="display: flex;justify-content: center"><img src="img/slides/slide_intro.png"/></li>
+  <% @slides_list.each_with_index do |slide_url,index| %>
+    <li align="center" style="display: flex;justify-content: center"><img src="img/slides/slide_<%= index %>.png"/></li>
+  <% end %>
+  <li align="center" style="display: flex;justify-content: center"><img src="img/slides/slide_thankyou.jpg"/></li>
   </ul>
 </div>
 <div id="progressTimer"></div>
