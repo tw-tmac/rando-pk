@@ -16,11 +16,11 @@ class Slides
   end
 
   def slides_image_list
-    @slides_image_list
+    @slides_image_list[1..@num_of_slides]
   end
 
   def get_images_from_wikimedia
-    rando_url = "https://commons.wikimedia.org/w/api.php?action=query&list=random&rnnamespace=6&rnlimit=#{@num_of_slides}&format=json&prop=imageinfo&iiprop=url&iiurlwidth=800&format=json"
+    rando_url = "https://commons.wikimedia.org/w/api.php?action=query&list=random&rnnamespace=6&rnlimit=30&format=json&prop=imageinfo&iiprop=url&iiurlwidth=800&format=json"
     rando_response = RestClient.get(rando_url)
     randomized_image_list = JSON.parse(rando_response)
 
@@ -29,7 +29,9 @@ class Slides
       image_response = RestClient.get(image_request_url)
       image_properties = JSON.parse(image_response)
       image_url = image_properties["query"]["pages"][image_properties["query"]["pages"].keys[0]]["imageinfo"][0]["thumburl"]
-      @slides_image_list << image_url
+      if (image_url.downcase.include?("png") || image_url.downcase.include?("jpg"))
+        @slides_image_list << image_url
+      end
     end
   end
 
@@ -57,6 +59,7 @@ class Slides
   end
 
   def generate_intro_slide
+    puts "generating intro slide"
     generate_slide(File.dirname(__FILE__)+"/../public/img/slides/intro.png", generate_random_title, File.dirname(__FILE__)+"/../public/img/slides/slide_intro.png")
   end
 

@@ -8,7 +8,7 @@ function init() {
     beforeSend : function(){
       var clock;
       //10 seconds countdown to let the presenter be ready.. and to cache the slides
-      clock = new FlipClock($('.clock'), 1, {
+      clock = new FlipClock($('.clock'), 10, {
                 clockFace: 'Counter',
                 autoStart: true,
                 countdown: true,

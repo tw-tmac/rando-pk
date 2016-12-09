@@ -1,5 +1,8 @@
 FROM phusion/passenger-ruby22:0.9.18
 
+RUN apt-get update
+RUN apt-get install -y wget ghostscript libgs-dev imagemagick 
+
 # Set correct environment variables.
 ENV HOME /root
 

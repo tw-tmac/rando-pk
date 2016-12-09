@@ -30,7 +30,7 @@
   <ul class="bxslider">
     <li align="center" style="display: flex;justify-content: center"><img src="img/slides/slide_intro.png"/></li>
   <% @slides_list.each_with_index do |slide_url,index| %>
-    <li align="center" style="display: flex;justify-content: center"><img src="img/slides/slide_<%= index %>.png"/></li>
+    <li align="center" style="display: flex;justify-content: center"><img src="<%= slide_url %>"/></li>
   <% end %>
   <li align="center" style="display: flex;justify-content: center"><img src="img/slides/slide_thankyou.jpg"/></li>
   </ul>
