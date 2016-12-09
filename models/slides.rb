@@ -57,10 +57,4 @@ class Slides
     slide = img.flatten_images
     slide.write(slide_name)
   end
-
-  def generate_intro_slide
-    puts "generating intro slide"
-    generate_slide(File.dirname(__FILE__)+"/../public/img/slides/intro.png", generate_random_title, File.dirname(__FILE__)+"/../public/img/slides/slide_intro.png")
-  end
-
 end

@@ -6,7 +6,9 @@ $rando_pk = Slides.new($SLIDES_COUNT)
 
 get '/cache-images' do
   slides_list = $rando_pk.slides_image_list
-  $rando_pk.generate_intro_slide
+  random_title = $rando_pk.generate_random_title
+  puts "generating intro slide"
+  $rando_pk.generate_slide(File.dirname(__FILE__)+"/public/img/slides/intro.png", random_title, File.dirname(__FILE__)+"/public/img/slides/slide_intro.png")
   json "Cached all #{slides_list.size} images"
 end
 
