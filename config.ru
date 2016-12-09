@@ -1,4 +1,4 @@
 require 'sinatra'
-require File.expand_path 'app.rb', __FILE__
+require File.dirname(__FILE__) + '/app'
 use Rack::MethodOverride
 run Sinatra::Application
