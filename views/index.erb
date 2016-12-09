@@ -18,7 +18,8 @@
 
     <script>
       $(document).ready(function() {
-          init();
+          $('#clock').hide();
+          $('#restart').hide();
       });
     </script>
 </head>
@@ -26,14 +27,15 @@
   Slides will start in...
   <div class="clock" align="center" style="display: flex;justify-content: center"></div>
 </div>
-<div id="slides" class="slides">
+<input id="start" type="button" onclick="$('#start').hide();launchIntoFullscreen(document.documentElement);$('#clock').show();init();" value="Let the fun begin!"/>
+<input id="restart" type="button" value="restart" onclick="location.reload(true);"/>
+<div id="slides" class="slideshow">
   <ul class="bxslider">
-    <li align="center" style="display: flex;justify-content: center"><img src="img/slides/slide_intro.png"/></li>
+    <li align="center" style="display: flex;justify-content: center; vertical-align: middle;"><img src="img/slides/slide_intro.png"/></li>
   <% @slides_list.each_with_index do |slide_url,index| %>
     <li align="center" style="display: flex;justify-content: center"><img src="<%= slide_url %>"/></li>
   <% end %>
   <li align="center" style="display: flex;justify-content: center"><img src="img/slides/slide_thankyou.jpg"/></li>
   </ul>
 </div>
-<div id="progressTimer"></div>
-<input id="restart" type="button" value="restart" onclick="location.reload(true);"/>
+<div id="progressTimer" class="footer"></div>

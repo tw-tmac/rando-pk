@@ -8,6 +8,7 @@ class Slides
 
   attr_accessor :slides_image_list
   attr_accessor :num_of_slides
+  $MAX_HEIGHT=700
 
   def initialize(num_of_slides=1)
     self.slides_image_list = []
@@ -20,7 +21,7 @@ class Slides
   end
 
   def get_images_from_wikimedia
-    rando_url = "https://commons.wikimedia.org/w/api.php?action=query&list=random&rnnamespace=6&rnlimit=30&format=json&prop=imageinfo&iiprop=url&iiurlwidth=800&format=json"
+    rando_url = "https://commons.wikimedia.org/w/api.php?action=query&list=random&rnnamespace=6&rnlimit=45&format=json&prop=imageinfo&iiprop=url&iiurlwidth=800&format=json"
     rando_response = RestClient.get(rando_url)
     randomized_image_list = JSON.parse(rando_response)
 
@@ -28,8 +29,11 @@ class Slides
       image_request_url = "https://commons.wikimedia.org/w/api.php?action=query&titles=#{CGI.escape(image["title"])}&prop=imageinfo&&iiprop=url&iiurlwidth=800&format=json"
       image_response = RestClient.get(image_request_url)
       image_properties = JSON.parse(image_response)
+      if (image_properties["query"]["pages"][image_properties["query"]["pages"].keys[0]]["imageinfo"][0]["thumbheight"] > $MAX_HEIGHT)
+        next
+      end
       image_url = image_properties["query"]["pages"][image_properties["query"]["pages"].keys[0]]["imageinfo"][0]["thumburl"]
-      if (image_url.downcase.include?("png") || image_url.downcase.include?("jpg"))
+      if (image_url.downcase.include?("png") || image_url.downcase.include?("jpg") || !image_url.downcase.include?("icon"))
         @slides_image_list << image_url
       end
     end

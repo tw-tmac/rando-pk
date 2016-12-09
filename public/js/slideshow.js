@@ -1,5 +1,17 @@
-//Pecha Kucha rule says it's a 20 seconds per slide
-SLIDES_DURATION = 20
+SLIDES_DURATION = 20 //Pecha Kucha rule says it's a 20 seconds per slide
+COUNTDOWN = 10       //10 seconds countdown to let the presenter be ready.. and to cache the slides
+function launchIntoFullscreen(element) {
+  if(element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if(element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if(element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+}
+
 function init() {
   $("#restart").hide()
   $.ajax({
@@ -7,8 +19,7 @@ function init() {
     url: '/cache-images',
     beforeSend : function(){
       var clock;
-      //10 seconds countdown to let the presenter be ready.. and to cache the slides
-      clock = new FlipClock($('.clock'), 10, {
+      clock = new FlipClock($('.clock'), COUNTDOWN, {
                 clockFace: 'Counter',
                 autoStart: true,
                 countdown: true,
@@ -40,6 +51,7 @@ function loadSlides() {
     auto: true,
     infiniteLoop: false,
     autoControls: false,
+    adaptiveHeight: true,
     pager: false,
     pause: SLIDES_DURATION * 1000, //milliseconds
     onSlideNext: function($slideElement, oldIndex, newIndex){
