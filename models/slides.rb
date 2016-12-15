@@ -8,7 +8,74 @@ class Slides
 
   attr_accessor :slides_image_list
   attr_accessor :num_of_slides
-  $MAX_HEIGHT=700
+  MAX_HEIGHT=700
+
+  HEADLINE_STYLES = [
+    'FORCED_CULTURAL_REFERENCE',
+    'YOURE_WRONG_ABOUT',
+    'HYPE_HYPE_HYPE',
+    'AND_WHY_IT_MATTERS'
+  ]
+
+ SHORT_PITHY_QUOTES = [
+  'Survival is Success',
+  'Go Big Or Go Home',
+  'What If You Weren\'t Afraid?',
+  'Fail Fast',
+  'Success Is Built On Failure',
+  'Risking Nothing Risks Everything',
+  'Innovate Or Die',
+  'If You Change Nothing, Nothing Will Change',
+  'Don\'t Dream Of Success, Work For It',
+  'Minimising Risk',
+  'Collaborate Or Die',
+  'Take Back Control',
+  'Make It Great Again'
+]
+
+TRENDY_CULTURAL_REFERENCES = [
+  'Brexit',
+  'The EU Referendum',
+  'The Presidential Election',
+  'The US Election',
+  'Donald Trump',
+  'Hilary Clinton',
+  'Teresa May',
+  'The Loss of Marmite',
+  'Blockchain Technology',
+  'Game Of Thrones',
+  'Justin Bieber',
+  'Taylor Swift',
+  'Kanye West',
+  'Kim Kardashian',
+  '"Bremoaners"',
+  'Gears of War'
+]
+
+BUSINESS_BUZZ_WORDS = [
+  'Entrepreneurship',
+  'Innovation',
+  'Leadership',
+  'Startups',
+  'Industry Disruption',
+  'Lean Startup',
+  'Agile Software Development',
+  'Digital Transformation',
+  'User Centric Design',
+  'The Web Platform'
+]
+
+CONTENTIOUS_THEMES = [
+  'The Death of Twitter',
+  'The Robot Apocalypse',
+  'Google\'s Tax Policy',
+  'Silicon Valley Excess',
+  'Internet Privacy',
+  'Remote Working',
+  'The Internet of Things',
+  'Self-Driving Cars',
+  'Web vs Native'
+]
 
   def initialize(num_of_slides=1)
     self.slides_image_list = []
@@ -29,7 +96,7 @@ class Slides
       image_request_url = "https://commons.wikimedia.org/w/api.php?action=query&titles=#{CGI.escape(image["title"])}&prop=imageinfo&&iiprop=url&iiurlwidth=800&format=json"
       image_response = RestClient.get(image_request_url)
       image_properties = JSON.parse(image_response)
-      if (image_properties["query"]["pages"][image_properties["query"]["pages"].keys[0]]["imageinfo"][0]["thumbheight"] > $MAX_HEIGHT)
+      if (image_properties["query"]["pages"][image_properties["query"]["pages"].keys[0]]["imageinfo"][0]["thumbheight"] > MAX_HEIGHT)
         next
       end
       image_url = image_properties["query"]["pages"][image_properties["query"]["pages"].keys[0]]["imageinfo"][0]["thumburl"]
@@ -39,12 +106,21 @@ class Slides
     end
   end
 
+#adapted from: https://github.com/poshaughnessy/medium-headline-generator/blob/master/src/js/headlineGenerator.js
   def generate_random_title
-    word_1 = ["Breaking","The Politics of","Fantastic","Decadent","Queering","Collective","Romancing","Mediating","An Overwhelming","Arbitrary","Remixing","For Love of","Alchemical","Apposite","Extravagant","Parsing","Relational","Postcolonial","To Find the Properties of","Archaeological","After the","In Search of","Whither","The Bureaucracies of"]
-    word_2 = ["Ground","Dissent","Illusion","Rubbish","Dreams","Imagination","Gaming","Media","Banality","Charm","History","Chemistry","Properties","Relevance","Extravaganza","Dilettantes","(Im)Possibilities","Sustainability"]
-    word_3 = ["Cheating","The Politics of","The Video Art of","Queers and","Daring to Defy","A Juried Show of","Media Art and","A Retrospective of","15 Years of","Defying","John Waters and","Locality and","A Remix of","Figuring","The Disjunction of","The Dysfunction of","Post-Painterly Art of","Achieving and Undermining","Constructing a Praxis of","Deconstructing"]
-    word_4 = ["the System","Social Practice","Gender","the Status Quo","Complacency","Remediation","Misfortune","Damage","Sameness","Interactivity","Change","the Local","Urban Experience","the Avant Garde","Dilettantism","Juncture","Dysfunction","Progress","Too Many Dinner wordies","Aesthetic Forms and Their Opposites"]
-    "#{word_1.sample} #{word_2.sample}: #{word_3.sample} #{word_4.sample}"
+    headline_style = HEADLINE_STYLES.sample
+    short_pithy_quote = SHORT_PITHY_QUOTES.sample
+    trendy_cultural_reference = TRENDY_CULTURAL_REFERENCES.sample
+    business_buzz_word = BUSINESS_BUZZ_WORDS.sample
+    contentious_theme = CONTENTIOUS_THEMES.sample
+    case (headline_style)
+      when 'FORCED_CULTURAL_REFERENCE'
+        "#{short_pithy_quote}: What #{trendy_cultural_reference} Teaches Us About #{business_buzz_word}"
+      when 'YOURE_WRONG_ABOUT'
+        "Why #{trendy_cultural_reference} Shows You're Wrong About #{contentious_theme}"
+      when 'HYPE_HYPE_HYPE'
+        "#{rand(20)} Ways That #{trendy_cultural_reference} Is Going To Change #{business_buzz_word}"
+      end
   end
 
   def generate_slide(original_image, caption, slide_name)
