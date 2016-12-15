@@ -31,7 +31,6 @@
 <input id="restart" type="button" value="restart" onclick="location.reload(true);"/>
 <div id="slides" class="slideshow">
   <ul class="bxslider">
-    <li align="center" style="display: flex;justify-content: center; vertical-align: middle;"><img src="img/slides/slide_intro.png"/></li>
   <% @slides_list.each_with_index do |slide_url,index| %>
     <li align="center" style="display: flex;justify-content: center"><img src="<%= slide_url %>"/></li>
   <% end %>
