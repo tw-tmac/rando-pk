@@ -9,6 +9,10 @@ get '/cache-images' do
   random_title = $rando_pk.generate_random_title
   puts "generating intro slide"
   $rando_pk.generate_slide(File.dirname(__FILE__)+"/public/img/slides/intro.png", random_title, File.dirname(__FILE__)+"/public/img/slides/slide_intro.png")
+  until File.exist?(File.dirname(__FILE__)+"/public/img/slides/slide_intro.png")
+    puts "Intro doesn't exist.. waiting"
+    sleep 1
+  end
   json "Cached all #{slides_list.size} images"
 end
 
