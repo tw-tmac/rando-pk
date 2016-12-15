@@ -14,26 +14,27 @@ function launchIntoFullscreen(element) {
 
 function init() {
   $("#restart").hide()
-  $.ajax({
-    type: "GET",
-    url: '/cache-images',
-    beforeSend : function(){
-      var clock;
-      clock = new FlipClock($('.clock'), COUNTDOWN, {
-                clockFace: 'Counter',
-                autoStart: true,
-                countdown: true,
-                callbacks: {
-                  stop: function() {
-                    $("#clock").hide();
-                    $("#slides").show();
-                    loadSlides();
-                  }
-                }
-              });
+
+   clock = new FlipClock($('.clock'), COUNTDOWN, {
+            clockFace: 'Counter',
+            autoStart: true,
+            countdown: true,
+            callbacks: {
+              start: function(){
+                alert("grabbing images");
+                $.ajax({
+                  type: "GET",
+                  url: '/cache-images'
+                })
+              },
+              stop: function() {
+                $("#clock").hide();
+                $("#slides").show();
+                loadSlides();
+              }
+            }
+          });
       clock.start();
-    }
-  })
 }
 
 function startProgressBar(){
