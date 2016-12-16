@@ -1,3 +1,5 @@
+[![Build Status](https://app.snap-ci.com/tw-tmac/rando-pk/branch/master/build_image)](https://app.snap-ci.com/tw-tmac/rando-pk/branch/master)
+
 # rando-pk: a randomized pecha kucha generator
 
 Ever want to practice your improv skills and your presentation skills? The rando-pk is the tool for you. It grabs a random image from https://commons.wikimedia.org and generates a random title. The rules of a pecha kucha is simple:
