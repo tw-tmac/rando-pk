@@ -27,7 +27,20 @@
   Slides will start in...
   <div class="clock" align="center" style="display: flex;justify-content: center"></div>
 </div>
-<input id="start" type="button" onclick="$('#start').hide();launchIntoFullscreen(document.documentElement);$('#clock').show();init();" value="Let the fun begin!"/>
+<div id="intro" style="margin: 20px">
+  Ever want to practice your improv skills and your presentation skills? The rando-pk is the tool for you.
+  <br/>
+  <br/>
+  The rules of a pecha kucha is simple:
+  <br/>
+  <br/>
+  <blockquote cite="http://www.pechakucha.org/faq">
+    PechaKucha 20x20 is a simple presentation format where you show 20 images, each for 20 seconds. The images advance automatically and you talk along to the images.
+  </blockquote>
+  Here is the twist: <span style="font-weight: bold">everything</span> is random; from the images to the title. Now...
+  <br/>
+  <input id="start" type="button" onclick="$('#start').hide();$('#intro').hide();launchIntoFullscreen(document.documentElement);$('#clock').show();init();" value="Let the fun begin!"/>
+</div>
 <input id="restart" type="button" value="restart" onclick="location.reload(true);"/>
 <div id="slides" class="slideshow">
   <ul class="bxslider">
