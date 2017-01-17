@@ -8,6 +8,7 @@ class Slides
 
   attr_accessor :slides_image_list
   attr_accessor :num_of_slides
+  attr_accessor :slide_title
   MAX_HEIGHT=700
 
   HEADLINE_STYLES = [
@@ -136,5 +137,6 @@ CONTENTIOUS_THEMES = [
 
     slide = img.flatten_images
     slide.write(slide_name)
+    puts "Random title #{caption} has been generated"
   end
 end
